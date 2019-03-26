@@ -1,6 +1,7 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./schema/schema');
+const cors = require('cors');
 
 const app = express();
 const mongoose = require('mongoose');
@@ -8,6 +9,7 @@ const mongoose = require('mongoose');
 const passwordMongoDB = 'cQvUZ5sxufMGy6m';
 const userNameMongoDB = 'graphql';
 
+app.use(cors());
 mongoose.connect(`mongodb://${userNameMongoDB}:${passwordMongoDB}@ds115701.mlab.com:15701/heroku_5lc6f430`, { useNewUrlParser: true })
 mongoose.connection.once('open', () => {
   console.log('connected to database');
