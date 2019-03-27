@@ -28,7 +28,7 @@ function BookDetails({data}) {
                         {
                             book.author.books.map((x, index) => {
                                 return (
-                                    <li key={index} >
+                                    <li className='itemList' key={index} >
                                         {x.name}
                                     </li>
                                 )

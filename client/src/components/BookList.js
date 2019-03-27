@@ -3,7 +3,18 @@ import React, { useEffect, useState } from 'react';
 import { graphql } from 'react-apollo';
 import { getBooksQuery } from '../queries';
 import BookDetail from './BookDetails';
+import Grid from '@material-ui/core/Grid';
 
+const styleNav = {
+    left: '62%',
+    width: '38vw',
+    padding: '4%',
+    height: '100vh',
+    position: 'fixed',
+    top: '1px',
+    backgroundColor: 'rgb(0, 0, 0)',
+    color: 'white'
+}
 function BookList({ data }) {
 
     const [books, setBooks] = useState([])
@@ -23,25 +34,35 @@ function BookList({ data }) {
 
     if (!data.loading) {
         return (
-            <div>
-                <ul>
-                    {
-                        books.map(book => {
-                            return (
-                                <li
-                                    id={book.id}
-                                    key={book.id}
-                                    onClick={handleSelected} >
-                                    Book name: {book.name}
-                                </li>
-                            )
-                        })
-                    }
+            <Grid container spacing={0}>
+                <Grid item xs={6}>
+                    <div>
+                        <ul>
+                            {
+                                Array.isArray(books) ? books.map(book => {
+                                    return (
+                                        <li
+                                            className='itemBook'
+                                            id={book.id}
+                                            key={book.id}
+                                            onClick={handleSelected} >
+                                            Book name: {book.name}
+                                        </li>
+                                    )
+                                }) : null
+                            }
 
-                </ul>
+                        </ul>
 
-                <BookDetail bookId={selected} />
-            </div>
+
+                    </div>
+                </Grid>
+
+                <Grid style={styleNav} item xs={6}>
+                    <BookDetail bookId={selected} />
+                </Grid>
+            </Grid>
+
         )
     } else {
         return (
